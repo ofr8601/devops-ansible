@@ -7,9 +7,10 @@
   ping:
     data: alive
   tags: check
+
 - name: install pip repositoy
   yum: 
-    name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm 
+    name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
     state: present
   become: yes
 
@@ -17,8 +18,9 @@
   yum:
     name: http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
     state: latest
-
-
+- name: add amazon-linux-extras
+  command: yum-config-manager --enable rhui-REGION-rhel-server-extras
+  become: yes
 # Add further tasks for the common role (applied to all servers) to this playbook...
 
 ...
