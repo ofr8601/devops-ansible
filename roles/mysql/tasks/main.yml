@@ -1,0 +1,39 @@
+---
+#
+# Tasks to be applied to some servers
+#
+- name: install mysql
+  yum:
+    name: http://repo.mysql.com/mysql80-community-release-el7-2.noarch.rpm
+    state: present
+
+- name: Make sure a mysql is running
+  systemd:
+    state: started
+    name: mysqld
+
+- name: make sure .bashrc exists in root home
+  copy:
+    content: ""
+    dest: /home/root/.bashrc
+    force: no
+    group: root
+    owner: root
+    mode: 0644 
+
+- name: setup environment variables 
+  lineinfile:
+    path: /home/root/.bashrc
+    line: "{{ item }}"
+  with_items:
+    - export MYSQL_DB=mydb
+    - export MYSQL_HOST=localhost
+    - export MYSQL_PASSWORD=Th3P@ssw0rd
+    - export MYSQL_PORT=3306
+    - export MYSQL_USER=myuser
+
+- name: source .bashrc
+  shell: "source /home/root/.bashrc"
+# Add tasks for a specific role to this playbook...
+
+...

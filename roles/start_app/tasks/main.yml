@@ -1,0 +1,27 @@
+---
+#
+# Tasks to be applied to some servers
+#
+
+# Add tasks for a specific role to this playbook...
+
+- name: add maven wrapper to path
+  lineinfile:
+    path: /home/root/.bashrc
+    line: "{{ item }}"
+  with_items:
+    - M2_HOME="/home/ec2-user/apache-maven-3.6.1"
+    - export PATH=$M2_HOME/bin:$PATH
+    - export PATH="/home/ec2-user/canary/spring-maven-mysql":$PATH
+    - export JAVA_HOME="/usr/bin/java"
+
+- name: source .bashrc
+  shell: "source /home/root/.bashrc"
+
+
+#- name: change dir to canary home
+#  command: "cd /home/ec2-user/canary/spring-maven-mysql"
+
+- name: start canary app
+  command: "cd  /home/ec2-user/canary/spring-maven-mysql && mvnw spring-boot:run"
+...

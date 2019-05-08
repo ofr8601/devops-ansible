@@ -1,0 +1,66 @@
+---
+#
+# Tasks to be applied to some servers
+#
+
+# Add tasks for a specific role to this playbook...
+- name: "create /home/root/drone"
+  become: yes
+  file:
+    path: "{{ item.path }}"
+    state: directory
+    owner: "root"
+    group: "root"
+  with_items:
+    - { path: "/home/root/drone/drone-server" }
+    - { path: "/home/root/drone/drone-agent" }
+  tags:
+    - drone 
+
+- name: "template files into /home/root/drone"
+  become: yes
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "root"
+    group: "root"
+    force: yes
+  with_items:
+    - { src: "templates/README.j2", dest: "/home/root/drone/README.MD" }
+    - { src: "templates/docker-compose.j2", dest: "/home/root/drone/docker-compose.yml" }
+    - { src: "templates/drone-server/Dockerfile.j2", dest: "/home/root/drone/drone-server/Dockerfile" }
+    - { src: "templates/drone-server/dockerfile_build.j2", dest: "/home/root/drone/drone-server/dockerfile_build.sh" }
+    - { src: "templates/drone-agent/Dockerfile.j2", dest: "/home/root/drone/drone-agent/Dockerfile" }
+    - { src: "templates/drone-agent/dockerfile_build.j2", dest: "/home/root/drone/drone-agent/dockerfile_build.sh" }
+  tags:
+    - drone 
+
+- name: make dockerfile_build.sh scripts executable
+  become: yes
+  file: 
+    path: "{{ item.path }}"
+    mode: "u=rwx,g=r,o=r"  
+    owner: "root"
+    group: "root"
+  with_items:
+    - { path: "/home/root/drone/drone-server/dockerfile_build.sh" }
+    - { path: "/home/root/drone/drone-agent/dockerfile_build.sh" }
+  tags:
+    - drone 
+
+- name: "build agent:{{ drone_version }} and drone:{{ drone_version }} docker images"
+  become: yes
+  docker_image:
+    path: "{{ item.path }}"
+    name: "{{ item.name }}"
+  with_items:
+    - { path: "/home/root/drone/drone-agent", name: "agent:{{ drone_version }}" }
+    - { path: "/home/root/drone/drone-server", name: "drone:{{ drone_version }}" }
+  tags:
+    - drone
+
+- debug:
+    msg: "Drone will need to be stood up by hand as per the README.md"
+  tags:
+    - drone
+...

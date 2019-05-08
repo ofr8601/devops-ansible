@@ -1,0 +1,24 @@
+---
+#
+# Tasks to be applied to all servers
+#
+
+- name: Check connectivity
+  ping:
+    data: alive
+  tags: check
+- name: install pip repositoy
+  yum: 
+    name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm 
+    state: present
+  become: yes
+
+- name: add epel-release repo
+  yum:
+    name: http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+    state: latest
+
+
+# Add further tasks for the common role (applied to all servers) to this playbook...
+
+...

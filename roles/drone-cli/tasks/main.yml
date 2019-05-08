@@ -1,0 +1,30 @@
+---
+#
+# Tasks to be applied to some servers
+#
+
+# Add tasks for a specific role to this playbook...
+
+- name: is drone cli installed?
+  stat: path=/usr/local/bin/drone
+  register: drone_cli
+
+- name: download and install drone-cli
+  become: yes
+  block:
+    - command: "wget https://github.com/drone/drone-cli/releases/download/v1.0.7/drone_linux_amd64.tar.gz"
+      args:
+        chdir: /tmp
+        warn: false
+    - unarchive:
+        src: /tmp/drone_linux_amd64.tar.gz
+        dest: /usr/local/bin
+        remote_src: yes
+    - file:
+        path: /tmp/drone_linux_amd64.tar.gz
+        state: absent 
+  when: drone_cli.stat.exists == False
+  tags:
+    - drone-cli
+
+...

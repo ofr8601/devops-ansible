@@ -1,0 +1,15 @@
+drone_version: 1
+drone_cli_version: 1.0.7
+golang_version: 1.12.1
+gitlab_version: 11.8.3
+inspec_version: 3.9.0
+inspec_rpm_version: 3.9.0/el/7/inspec-3.9.0-1.el7.x86_64
+python_version: 2.7.16
+registry_version: 2.7.1
+plantuml_server_version: latest
+sonarqube_version: 7.1
+sonar_scanner_cli_version: 3.3.0.1492
+selenium_standalone_chrome_version: 3.14.0
+selenium_standalone_firefox_version: 3.14.0
+taiga_version: 4.0.4
+zap2docker_stable_version: 2.7.0
