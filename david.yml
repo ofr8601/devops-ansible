@@ -8,13 +8,12 @@
     - common
 #    - docker
 #    - docker-compose
-    - gitlab
-#    - mysql
+#    - gitlab
+    - mysql
     - start_app
 #    - drone
 #    - drone-cli
-#     - sonarqube
-#     - sonar-scanner-cli
+#     - sonar-scanner
 # Associate further roles to servers in specific group in this file...
 
 ...
