@@ -23,5 +23,9 @@
 #  command: "cd /home/ec2-user/canary/spring-maven-mysql"
 
 - name: start canary app
-  command: "cd  /home/ec2-user/canary/spring-maven-mysql && mvnw spring-boot:run"
+  command: /home/ec2-user/canary/spring-maven-mysql/mvnw spring-boot:run
+  args: 
+    chdir: /home/ec2-user/canary/spring-maven-mysql
+
+
 ...
