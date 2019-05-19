@@ -5,15 +5,15 @@
     - versions_config.yml
   become: yes 
   roles:
-    - common
+#    - common
 #    - docker
 #    - docker-compose
 #    - gitlab
-    - mysql
-    - start_app
-#    - drone
+#    - mysql
+#    - start_app
+    - drone
 #    - drone-cli
-#     - sonar-scanner
+#    - sonar-scanner
 # Associate further roles to servers in specific group in this file...
 
 ...
