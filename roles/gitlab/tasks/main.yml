@@ -43,6 +43,7 @@
   tags:
     - gitlab
 
+#<<<<<<< HEAD
 - name: install docker via pip
   pip:
     name: docker
@@ -61,6 +62,20 @@
 #    name: nemonik/gitlab:{{ gitlab_version }}
     path: "/home/root/gitlab"
     name: gitlab/gitlab-ce
+#=======
+#- name: instal pip docker
+#  pip:
+#    name: docker
+#    state: latest
+
+#- name: "build nemonik/gitlab:11.8.3 docker image"
+#  become: yes
+#  docker_image:
+#    path: "/home/{{ ansible_user_id }}/gitlab"
+#    name: nemonik/gitlab:{{ gitlab_version }}
+#    path: "/home/root/gitlab"
+#    name: gitlab/gitlab-ce
+#>>>>>>> aa053b22b0e27b19c5bf41fa7c20d7d422b72d16
   tags:
     - gitlab
 
